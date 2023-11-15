@@ -10,7 +10,7 @@
 		ORDER BY P.Produto, 'VALOR_BRUTO'
 
 -- 2 Valor de venda por tipo de produto
--- Não tinha tipo de produto, usei categoria
+-- NÃ£o tinha "tipo de produto", usei categoria
 		SELECT 
 			SUM(D.[Valor]) AS 'VALOR_BRUTO',
 			CA.Categoria
@@ -20,7 +20,7 @@
 		GROUP BY CA.Categoria
 		ORDER BY CA.Categoria, 'VALOR_BRUTO'
 
--- 3 Quantidade e valor das vendas por dia, mês, ano
+-- 3 Quantidade e valor das vendas por dia, mÃªs, ano
 		SELECT 
 			DAY(C.[Data]) AS 'DIA',
 			MONTH(C.[Data]) AS 'MES',
@@ -52,7 +52,7 @@
 		ORDER BY 'QTD DE VENDAS', P.Produto
 
 -- 6 Venda por cliente, cidade do cliente e estado;
--- Não existe a coluna estado, usei região
+-- NÃ£o existe a coluna "estado", usei regiÃ£o
 		SELECT 
 			CL.Cliente,
 			CL.Cidade,
@@ -63,22 +63,22 @@
 		GROUP BY CL.Cliente,CL.Cidade,CL.Regiao
 		ORDER BY 'QTD DE VENDAS'
 
---7 Média de produtos vendidos
+--7 MÃ©dia de produtos vendidos
 		SELECT 
-			ROUND(AVG(CAST(D.[Quantidade] AS FLOAT)),2) AS 'Média de Produtos',
+			ROUND(AVG(CAST(D.[Quantidade] AS FLOAT)),2) AS 'MÃ©dia de Produtos',
 			P.Produto
 		FROM [dados].[dbo].[FatoDetalhes_DadosModelagem] D
 		LEFT JOIN [dados].[dbo].[Produtos] P ON D.ProdutoID=P.ProdutoID
 		GROUP BY P.Produto
-		ORDER BY 'Média de Produtos'
+		ORDER BY 'MÃ©dia de Produtos'
 
---8 Média de compras que um cliente faz
+--8 MÃ©dia de compras que um cliente faz
 
 		SELECT 	
 			ROUND(
 				CAST(COUNT(C.CupomID) AS FLOAT)/
 				CAST(COUNT(DISTINCT(CL.Cliente)) AS FLOAT)
-				,2) AS 'Média de compras por clientes'
+				,2) AS 'MÃ©dia de compras por clientes'
 		FROM [dados].[dbo].[FatoCabecalho_DadosModelagem] C
 		LEFT JOIN [dados].[dbo].[Clientes] CL ON CL.ClienteID=C.ClienteID
 		
